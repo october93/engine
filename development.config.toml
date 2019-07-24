@@ -1,0 +1,116 @@
+Environment = "development"
+BugsnagAPIKey = "45bb66438b6dea61cb002f0776b7c257"
+LogLevel = "info"
+UseGraph = false
+
+[Service]
+  Address = "localhost:8000"
+
+[GraphQL]
+  GraphAddress = "http://localhost:8081/query"
+
+[Store]
+  RootUserPassword = "J5DM{wQZ}&Hbvjnc*$7sTe9DV&QQQWZL"
+  [Store.Snapshot]
+    Path = "snapshots"
+    Background = true
+    Interval = 15
+  [Store.Datastore]
+    database = "engine"
+    user = "engine"
+    password = "zvsxsnNmd93fHqYmeYRqaFz2J0bmn83D"
+    host = "engine-db-development.cyviylciswvb.us-west-2.rds.amazonaws.com"
+    port = 5432
+    environment = "development"
+    migrationPath = "migrations"
+    maxConnections = 100
+    imageHost = "https://development.october.news"
+    anonymousIconsPath = "assets.development.october.news/emojis"
+
+[Worker]
+  EnableBugSnag = false
+  EmbedlyToken = "6bf85b008e6448aebe0a649ce1ab32f0"
+  ImagesPath = "data/images/articleimages/original"
+  MobileImagesPath = "data/images/articleimages/mobile"
+  ProfileImagesPath = "data/images/profilepictures"
+  ThumborHost = "localhost"
+  ThumborPort = 8000
+  Port = 8080
+  FCMServerKey = "AAAAG19puRc:APA91bFXyp92GFU7XC5BSXZlIWHkPXR7K_p2XIg5Yb9oFOg6ZrFl66vgFgsy4NbAcfnD2jlM6x2i7QOc01mflBYa429QSeCK0yaaXMMeyyt4guUjfUzB1wOwbqfBxxcCMftU73_5nkDaX1ei0bwJ5F0y3gPBijTi8Q"
+  GraphMonitorInterval = 1
+  SendGridAPIKey = "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"
+  AMPKey = "AIzaSyCQKwfZuXdcU_MAaqLTX8JYg6hlt534brc"
+  NSQDAddress = "nsqd.development.october.news:4150"
+  NSQLookupdAddress = "nsqlookupd.development.october.news:4161"
+  [Worker.CoinUpdater]
+    LeaderboardPlacesLimit = 25
+
+[Server]
+  Host = ""
+  Port = 8080
+  PublicPath = "public"
+  [Server.RPC]
+    AdminPanelHost = "https://development.october.news"
+    WebEndpoint = "https://development.october.news"
+    APIKey = "DjUxvskksDYUZjdmOCC42zS7czbPbPJL90CqnpVh3obKCwO8Nms2stZJpS0QxkGUaZU2aKb0gipfCEFvs39QDE5JsO6fEt5INzD7SU44I5WbOaWcAX8lapvE8nxLQp/aaYkTGDuzCVm8y3fpl+RBhl8BQKt6BLuhg9apttOT4ts="
+    EmbedlyToken = "6bf85b008e6448aebe0a649ce1ab32f0"
+    # DiffbotToken = "822666d9fc910ccd463eb213a213d38f"
+    CardImagesPath = "cards"
+    PublicImagesPath = "public/images"
+    OriginalCardImagesPath = "cards/originals"
+    CardContentImagesPath = "cards/content"
+    AssetsPath = "data/assets/backgrounds"
+    ProfileImagesPath = "profiles"
+    CoverImagesPath = "profiles/covers"
+    BackgroundImagesPath = "cards/backgrounds"
+    ImageHost = "https://development.october.news"
+    AccessKeyID = "AKIAJYLANOPAM7TFGYAA"
+    AccessKeySecret = "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"
+    S3Bucket = "assets.development.october.news"
+    S3Region = "us-west-2"
+    S3Upload = true
+    FacebookAppID = "1940992402827714"
+    FacebookAppSecret = "2315d1ed725d21ec66dd4d9a5339b4a7"
+    PushNotificationDelay = 30
+    SystemIconPath = "system/system-user-profile.png"
+    ResurfaceActivityThreshold = 4
+    AutoVerify = true
+    UnitsPerCoin = 10000
+  [Server.Protocol]
+    EnableBugSnag = false
+
+[Push]
+  FanOut = true
+  NatsEndpoint = "nats://development.nats.october.news:4222"
+
+[Metrics]
+  Enabled = true
+  DatadogAgentURL = "localhost:8125"
+
+[Search]
+  # ApplicationID = "0Z498T9C13"
+  AlgoliaAPIKey = "a565e1e5a8e425bc1d5a348653b413a4"
+  AlgoliaSearchKey = "b5dcca10ada97954dfc6b4d5b77786a4"
+  IndexName = "development_engine"
+
+[Debug]
+  Profile = false
+  Host = "localhost"
+  Port = 6060
+
+[CoinManager]
+  InitialBalance = 0
+  UsedInvite = 200000
+  InviteAccepted = 200000
+  LikeReceived = 10000
+  ReplyReceived = 10000
+  FirstPostActivity = 100000
+  PopularPost = 200000
+  LeaderboardFirst = 1000000
+  LeaderboardSecond = 500000
+  LeaderboardThird = 300000
+  LeaderboardTopTen = 200000
+  LeaderboardRanked = 100000
+  BoughtThreadAlias = 30000
+  BoughtPostAlias = 50000
+  BoughtChannel = 0

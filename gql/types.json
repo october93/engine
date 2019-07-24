@@ -1,0 +1,21 @@
+{
+  "ID": "github.com/october93/engine/kit/globalid.ID",
+  "Int64": "github.com/october93/engine/gql.Int64Scalar",
+  "Card": "github.com/october93/engine/model.Card",
+  "Author": "github.com/october93/engine/model.Author",
+  "User": "github.com/october93/engine/model.User",
+  "Session": "github.com/october93/engine/model.Session",
+  "Settings": "github.com/october93/engine/model.Settings",
+  "Invite": "github.com/october93/engine/model.Invite",
+  "FeatureSwitch": "github.com/october93/engine/model.FeatureSwitch",
+  "Announcement": "github.com/october93/engine/model.Announcement",
+  "WaitlistEntry": "github.com/october93/engine/model.WaitlistEntry",
+  "Connection": "github.com/october93/engine/rpc/protocol.Connection",
+  "AttentionNode": "github.com/october93/engine/model.AttentionNode",
+  "UserEngagement": "github.com/october93/engine/model.UserEngagement",
+  "Channel": "github.com/october93/engine/model.Channel",
+  "ModelTime": "github.com/october93/engine/model.DBTime",
+  "Count": "github.com/october93/engine/model.Count",
+  "ChannelEngagement": "github.com/october93/engine/model.ChannelEngagement",
+  "ConfidenceData": "github.com/october93/engine/model.ConfidenceData"
+}

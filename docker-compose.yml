@@ -1,0 +1,105 @@
+version: "3"
+services:
+  thumbor:
+    image: apsl/thumbor-nginx
+    network_mode: "host"
+    environment:
+      - USE_GIFSICLE_ENGINE=True
+      - DETECTORS = ['thumbor.detectors.feature_detector','thumbor.detectors.face_detector']
+    ports:
+      - "8000:80"
+  elasticsearch:
+    image: docker.elastic.co/elasticsearch/elasticsearch:6.2.2
+    ports:
+      - 9200:9200
+    environment:
+      - bootstrap.memory_lock=true
+      - xpack.security.enabled=false
+    ulimits:
+      memlock:
+        soft: -1
+        hard: -1
+  kibana:
+    image: docker.elastic.co/kibana/kibana:6.2.2
+    ports:
+      - 5601:5601
+  nsqlookupd:
+    image: nsqio/nsq
+    command: /nsqlookupd
+    ports:
+      - 4160:4160
+      - 4161:4161
+    networks:
+      - nsq
+  nsqd:
+    image: nsqio/nsq
+    command: /nsqd --lookupd-tcp-address=nsqlookupd:4160 --broadcast-address=nsqd
+    ports:
+      - 4150:4150
+      - 4151:4151
+    networks:
+      - nsq
+  nsqadmin:
+    image: nsqio/nsq
+    command: /nsqadmin --lookupd-http-address=nsqlookupd:4161
+    ports:
+      - 4171:4171
+    networks:
+      - nsq
+  datadog:
+    image: datadog/docker-dogstatsd
+    ports:
+      - 9125:8125/udp
+    volumes:
+      - /var/run/docker.sock:/var/run/docker.sock
+      - /proc/mounts:/host/proc/mounts:ro
+      - /sys/fs/cgroup/:/host/sys/fs/cgroup:ro
+    environment:
+      - API_KEY=DOCKER_API_KEY
+  postgres:
+    image: postgres:latest
+    ports:
+      - 5432:5432
+    volumes:
+      - postgres-data:/var/lib/postgresql/data
+    environment:
+      POSTGRES_PASSWORD: postgres
+  lb:
+    image: 'haproxy:1.7'
+    ports:
+      - '9000:80'
+    volumes:
+      - ./haproxy.cfg:/usr/local/etc/haproxy/haproxy.cfg
+    network_mode: "host"
+  nats:
+    image: 'nats:latest'
+    entrypoint: "/gnatsd -DV"
+    ports:
+      - "4222:4222"
+      - "6222:6222"
+      - "8222:8222"
+    network_mode: "host"
+  vault:
+    image: vault
+    command: ./startup.sh
+    environment:
+      - VAULT_ADDR=http://127.0.0.1:8200
+      - VAULT_DEV_LISTEN_ADDRESS=0.0.0.0:8200
+    cap_add:
+      - IPC_LOCK
+    volumes:
+      - ./file:/vault/file:rw
+      - ./config:/vault/config:rw
+      - ./vault/startup.sh:/startup.sh
+      - ./vault/tokens:/tokens
+    network_mode: "host"
+  redis:
+    image: redis
+    ports:
+      - 6379:6379
+
+volumes:
+  postgres-data:
+networks:
+  nsq:
+  engine:

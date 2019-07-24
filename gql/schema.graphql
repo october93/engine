@@ -1,0 +1,246 @@
+type Query {
+  cards(from: Time, to: Time, ids: [ID], introCards: Boolean): [Card]
+  users(usernames: [String]): [User]
+  sessions: [Session]
+  settings: Settings
+  invites: [Invite]
+  featureSwitches: [FeatureSwitch]
+  announcements: [Announcement]
+  waitlist: [WaitlistEntry]
+  connections: [Connection]
+  channels: [Channel]
+  channelEngagements: [ChannelEngagement]!
+  cardEngagement(from: Date, to: Date): [CardEngagement]!
+}
+
+ type CardEngagement {
+  id: ID!
+  uniqueUserCommentCount: Int!
+  totalLikeCount: Int!
+  totalDislikeCount: Int!
+  totalReplyCount: Int!
+}
+
+type Channel {
+  id: ID!
+  name: String!
+  handle: String!
+  isDefault: Boolean!
+  isPrivate: Boolean!
+}
+
+type ChannelEngagement {
+  channelID: ID!
+  totalPosts: Int!
+  totalLikes: Int!
+  totalDislikes: Int!
+  totalComments: Int!
+  totalCommenters: Int!
+}
+
+type Mutation {
+  generateExampleFeed(limitToChannels: [ID], limitToLastNHours: Int): [ID]
+  previewUserFeed(userID: ID!): [ID]
+  getCardConfidenceData(userID: ID!): [ConfidenceData]
+  setUserDefaultStatus(id: ID!, status: Boolean!): String!
+  shadowbanCards(ids: [ID]!): String!
+  unshadowbanCards(ids: [ID]!): String!
+  shadowbanUser(id: ID!): String!
+  unshadowbanUser(id: ID!): String!
+  recalculateLeaderboard(inviteReward: Int): String!
+  deactivateInvite(id: ID!): String!
+  setCardIntroStatus(id: ID!, status: Boolean!): String!
+  blockUser(id: ID!, deleteCards: Boolean): String!
+  unblockUser(id: ID!): String!
+  createAnnouncement(announcement: AnnouncementInput!, sendPush: Boolean): Announcement
+  deleteAnnouncement(id: ID!): String!
+  deleteFeatureSwitch(featureID: ID!): String!
+  createFeatureSwitch(state: String, name: String!): String!
+  setFeatureSwitchState(featureID: ID!, state: String!): String!
+  createInvite(userID: ID!, usesAllowed: Int): Invite
+  createInvitesFromTokens(userID: ID!, tokens: [String]): [Invite]
+  createUser(user: UserInput!): User
+  resetPasswords(usernames: [String]!): String!
+  toggleFeatureForUser(username: String!, featurename: String!): String!
+  updateSettings(settings: SettingsInput!): String!
+  updateWaitlist(comment: String!, email: String!): String!
+
+  indexAllUsers(clearFirst: Boolean): String!
+  indexAllChannels(clearFirst: Boolean): String!
+
+  createChannel(channel: ChannelInput!): Channel
+  updateChannel(id: ID!, channel: ChannelInput!): Channel
+  createChannelInvite(channelID: ID!, inviterID: ID!): Invite
+  updateCoinBalances(userID: ID!, coinBalance: Int, temporaryCoinBalance: Int): String!
+  sendTestPush(userID: ID!, forCardID: ID, message: String!, typ: String!, action: String, actionData: String): String!
+}
+type SetParameterPayload {
+  changed: Boolean!
+}
+
+input AnnouncementInput {
+  toUsers: [ID]
+  toEveryone: Boolean!
+  forCard: ID
+  fromUser: ID!
+  message: String!
+}
+input UserInput {
+  username: String!
+  displayname: String!
+  password: String!
+  profilePictureURL: String
+  coverPictureURL: String
+  email: String!
+}
+
+input ChannelInput {
+  name: String!
+  isDefault: Boolean!
+  isPrivate: Boolean
+}
+
+input SettingsInput {
+  signupsFrozen: Boolean
+  maintenanceMode: Boolean
+}
+
+type Author {
+  id: ID!
+  displayName: String!
+  username: String!
+  profileImagePath: String!
+  isAnonymous: Boolean!
+}
+
+type Card {
+  id: ID!
+  title: String!
+  content: String!
+  URL: String!
+  BackgroundColor: String!
+  createdAt: Time!
+  ownerID: ID!
+  apparentAuthor: Author
+}
+
+type User {
+  id: ID!
+  username: String!
+  email: String!
+  displayName: String!
+  isDefault: Boolean!
+  profileImagePath: String!
+  updatedAt: Time!
+  blocked: Boolean!
+  shadowbanned: Boolean!
+  possibleUninstall: Boolean!
+  lastActiveAt: ModelTime
+  joinedFromInvite: Invite
+  coinBalance: Int!
+  temporaryCoinBalance: Int!
+  postCount(from: Time, to: Time): Int!
+  engagement(from: Date, to: Date): UserEngagement
+}
+
+type UserEngagement {
+  daysActive: Int!
+  postCount: Int!
+  commentCount: Int!
+  reactedCount:           Int!
+  receivedReactionsCount: Int!
+  followedUsersCount:     Int!
+  followedCount:     Int!
+  invitedCount: Int!
+  score: Float!
+}
+
+type Settings {
+  signupsFrozen: Boolean!
+  maintenanceMode: Boolean!
+}
+
+type Invite {
+  id: ID!
+  token: String!
+  groupID: ID
+  hideFromUser: Boolean!
+  createdAt: Time!
+  issuer: User!
+  remainingUses: Int!
+}
+
+type FeatureSwitch {
+  id: ID!
+  name: String!
+  state: FeatureState!
+  testingUsers: [ID]
+  createdAt: Time!
+  updatedAt: Time!
+}
+
+enum FeatureState {
+  off
+  testing
+  on
+}
+
+type Announcement {
+  id: ID!
+  user: User
+  card: Card
+  message: String!
+  createdAt: Time!
+  updatedAt: Time!
+}
+
+type WaitlistEntry {
+  email: String!
+  comment: String!
+  name: String!
+  createdAt: Time!
+}
+
+type Session {
+  id: ID!
+  createdAt: Time!
+  user: User!
+}
+
+type Connection {
+  userAgent: String!
+  ipAddress: String!
+  adminPanel: Boolean!
+  createdAt: Time!
+  session: Session
+}
+
+type ConfidenceData {
+  id: ID!
+  upvoteCount: Int64!
+  downvoteCount: Int64!
+  commentCount: Int64!
+  viewCount: Int64!
+  goodness: Float!
+  engagementScore: Float!
+  confidence: Float!
+  probabilitySurfaced: Float!
+  rank: Float!
+  scoreMod: Float!
+}
+
+type UserID {
+  id: ID!
+  username: String!
+}
+
+#should consolidate ModelTime with Time. hack because dataloader won't easily take time.Time
+type ModelTime {
+  time: Time
+}
+
+scalar Time
+scalar Date
+scalar Score
+scalar Int64
+scalar ScoreInt

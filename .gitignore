@@ -1,0 +1,65 @@
+# Compiled Object files, Static and Dynamic libs (Shared Objects)
+*.o
+*.a
+*.so
+
+# Folders
+_obj
+_test
+_snapshot_data
+public
+schemaspy
+
+# Architecture specific extensions/prefixes
+*.[568vq]
+[568vq].out
+
+*.cgo1.go
+*.cgo2.c
+_cgo_defun.c
+_cgo_gotypes.go
+_cgo_export.*
+
+_testmain.go
+
+*.exe
+*.test
+*.prof
+.DS_Store
+references
+notes
+
+# Snapshot files
+snapshots/*.proto
+
+# Binaries
+engine
+rpcgen
+emailsender
+postworker
+indexer
+simulator
+createusers
+benchmark
+replay
+activityrecorder
+
+!**/worker/emailsender
+!**/worker/activityrecorder
+
+!**/cmd/engine
+!**/cmd/rpcgen
+!**/cmd/emailsender
+!**/cmd/indexer
+!**/cmd/postworker
+!**/cmd/creausers
+!**/cmd/benchmark
+!**/cmd/replay
+!**/cmd/activityrecorder
+
+docs
+
+migrations/schema.sql
+
+local.yml
+eugene.config.toml

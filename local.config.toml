@@ -1,0 +1,117 @@
+Environment = "local"
+BugsnagAPIKey = ""
+LogLevel = "info"
+UseGraph = false
+
+[Service]
+  Address = "localhost:8080"
+
+[GraphQL]
+  GraphAddress = "http://localhost:8081/query"
+  TestPushNotificationIconPath = "system/system-user-profile.png"
+
+[Store]
+  RootUserPassword = "secret"
+  [Store.Snapshot]
+    Path = "snapshots"
+    Background = true
+    Interval = 15
+  [Store.Datastore]
+    database = "engine_local"
+    user = "postgres"
+    password = "postgres"
+    host = "localhost"
+    port = 5432
+    migrationPath = "migrations"
+    environment = "local"
+    maxConnections = 100
+    imageHost = "http://localhost:9000"
+    anonymousIconsPath = "assets.development.october.news/emojis"
+
+
+[Worker]
+  EnableBugSnag = false
+  MobileImagesPath = "data/images/articleimages/mobile"
+  ProfileImagesPath = "data/images/profilepictures"
+  ThumborHost = "localhost"
+  ThumborPort = 8000
+  Port = 8080
+  FCMServerKey = ""
+  GraphMonitorInterval = 0
+  SendGridAPIKey = "secret"
+  AMPKey = ""
+  NSQDAddress = "localhost:4150"
+  NSQLookupdAddress = "localhost:4161"
+  [Worker.CoinUpdater]
+    LeaderboardPlacesLimit = 25
+
+
+[Server]
+  Host = "localhost"
+  Port = 9000
+  PublicPath = "public"
+  [Server.RPC]
+  AdminPanelHost = "http://localhost:3200"
+  WebEndpoint = "http://localhost:3000"
+  APIKey = "secret"
+  EmbedlyToken = "secret"
+  DiffbotToken = ""
+  CardImagesPath = "cards"
+  PublicImagesPath = "public/images"
+  OriginalCardImagesPath = "cards/originals"
+  CardContentImagesPath = "cards/content"
+  AssetsPath = "data/assets/backgrounds"
+  ProfileImagesPath = "profiles"
+  CoverImagesPath = "profiles/covers"
+  BackgroundImagesPath = "cards/backgrounds"
+  ImageHost = "http://localhost:9000"
+  AccessKeyID = "secret"
+  AccessKeySecret = "secret"
+  S3Bucket = "assets.development.october.news"
+  S3Region = "us-west-2"
+  S3Upload = true
+  FacebookAppID = "secret"
+  FacebookAppSecret = "secret"
+  PushNotificationDelay = 10
+  SystemIconPath = "system/system-user-profile.png"
+  ResurfaceActivityThreshold = 4
+  AutoVerify = true
+  UnitsPerCoin = 10000
+  [Server.Protocol]
+    EnableBugSnag = false
+
+[Push]
+  FanOut = false
+  NatsEndpoint = "nats://localhost:4222"
+
+[Metrics]
+  Enabled = false
+  DatadogAgentURL = "localhost:9125"
+
+[Search]
+  ApplicationID = ""
+  AlgoliaAPIKey = ""
+  AlgoliaSearchKey = ""
+  IndexName = "local_engine"
+
+[Debug]
+  Profile = true
+  Host = "localhost"
+  Port = 6060
+
+[CoinManager]
+  InitialBalance = 0
+  UsedInvite = 200000
+  InviteAccepted = 200000
+  LikeReceived = 10000
+  ReplyReceived = 10000
+  FirstPostActivity = 100000
+  PopularPost = 200000
+  LeaderboardFirst = 1000000
+  LeaderboardSecond = 500000
+  LeaderboardThird = 300000
+  LeaderboardTopTen = 200000
+  LeaderboardRanked = 100000
+  BoughtThreadAlias = 30000
+  BoughtPostAlias = 50000
+  BoughtChannel = 0

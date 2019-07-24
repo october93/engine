@@ -1,0 +1,3 @@
+alias tunnel-db-dev="ssh -i ~/.ssh/terraform -4 -L9005:engine-db-development.cyviylciswvb.us-west-2.rds.amazonaws.com:5432 ubuntu@engine.internal.development.october.news"
+alias tunnel-db-latest="ssh -i ~/.ssh/terraform -4 -L9006:terraform-20170928002551176100000001.cyviylciswvb.us-west-2.rds.amazonaws.com:5432 ubuntu@latest.october.news"
+alias tunnel-db-prod="ssh -i ~/.ssh/terraform -4 -L9007:engine-db-production.cyviylciswvb.us-west-2.rds.amazonaws.com:5432 ubuntu@engine.internal.october.news"

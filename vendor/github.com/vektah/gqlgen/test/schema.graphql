@@ -1,0 +1,35 @@
+type Element {
+    child: Element!
+    error: Boolean!
+}
+
+enum DATE_FILTER_OP {
+    EQ
+    NEQ
+    GT
+    GTE
+    LT
+    LTE
+}
+
+input DateFilter {
+    value: String!
+    timezone: String = "UTC"
+    op: DATE_FILTER_OP = EQ
+}
+
+type User {
+    name: String
+}
+type Viewer {
+    user: User
+}
+
+type Query {
+    path: [Element]
+    date(filter: DateFilter!): Boolean!
+    viewer: Viewer
+    jsonEncoding: String!
+}
+
+// this is a comment with a `backtick`
